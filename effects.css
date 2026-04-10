@@ -1,0 +1,46 @@
+/* --- 特效相關 CSS --- */
+.sparkle, .burst {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.sparkle {
+    font-size: 1.2rem;
+    animation: sparkleAnim 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes sparkleAnim {
+    0% { transform: translate(0, 0) scale(0.5) rotate(0deg); opacity: 1; }
+    50% { transform: translate(calc(var(--move-x) / 2), calc(var(--move-y) / 2)) scale(1.2) rotate(90deg); opacity: 1; }
+    100% { transform: translate(var(--move-x), var(--move-y)) scale(0) rotate(180deg); opacity: 0; }
+}
+
+.burst {
+    font-size: 1.5rem;
+    animation: burstAnim 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes burstAnim {
+    0% { transform: translate(0, 0) scale(0.5) rotate(0deg); opacity: 1; }
+    100% { transform: translate(var(--move-x), var(--move-y)) scale(1.5) rotate(180deg); opacity: 0; }
+}
+
+/* 背景泡泡 */
+.bg-bubble {
+    position: fixed;
+    bottom: -150px;
+    border-radius: 50%;
+    z-index: -1;
+    animation: riseUp 12s linear forwards;
+    filter: drop-shadow(0 0 10px rgba(255,255,255,0.8));
+    pointer-events: none;
+}
+
+@keyframes riseUp {
+    0% { transform: translateY(0) scale(0.8) translateX(0); opacity: 0; }
+    10% { opacity: 0.8; }
+    50% { transform: translateY(-50vh) scale(1) translateX(30px); opacity: 0.8; }
+    90% { opacity: 0.8; }
+    100% { transform: translateY(-120vh) scale(1.2) translateX(-30px); opacity: 0; }
+}

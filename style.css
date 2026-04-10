@@ -1,0 +1,259 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap');
+
+:root {
+    --bg-color: #FFF5F7; /* 淺粉色背景 Baby pink */
+    --text-color: #7A636D; /* 柔和深藕色 Soft dark mauve */
+    --card-bg: #FFFFFF;
+    
+    --color-1: #FFD2D7; /* 軟軟西瓜粉 Pink */
+    --color-2: #D4F0F0; /* 軟軟薄荷藍 Mint */
+    --color-3: #FFF0D1; /* 軟軟奶油黃 Cream */
+}
+
+body {
+    font-family: 'Nunito', '微軟正黑體', sans-serif;
+    color: var(--text-color);
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+/* Home */
+body.home {
+    background-color: var(--bg-color);
+    padding: 2rem;
+    min-height: 100vh;
+    /* 點綴背景的夢幻光點 */
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(255, 230, 235, 0.6) 20px, transparent 21px),
+        radial-gradient(circle at 80% 40%, rgba(255, 230, 235, 0.6) 30px, transparent 31px),
+        radial-gradient(circle at 30% 70%, rgba(255, 230, 235, 0.6) 15px, transparent 16px),
+        radial-gradient(circle at 90% 80%, rgba(255, 230, 235, 0.6) 25px, transparent 26px);
+}
+
+/* Labs */
+body.lab {
+    background-color: var(--bg-color);
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+    padding: 2rem;
+    box-sizing: border-box;
+}
+
+body.stage-1 { background-color: var(--color-1); }
+body.stage-2 { background-color: var(--color-2); }
+body.stage-3 { background-color: var(--color-3); }
+
+/* Decorative Clouds entirely in CSS */
+.decor-cloud {
+    position: absolute;
+    background: #FFF;
+    border-radius: 50px;
+    opacity: 0.8;
+    z-index: -1;
+    animation: drift 30s linear infinite alternate;
+}
+.decor-cloud::before, .decor-cloud::after {
+    content: '';
+    position: absolute;
+    background: #FFF;
+    border-radius: 50%;
+}
+.c1 { width: 120px; height: 40px; top: 10%; left: 5%; }
+.c1::before { width: 60px; height: 60px; top: -30px; left: 15px; }
+.c1::after { width: 40px; height: 40px; top: -20px; left: 65px; }
+
+.c2 { width: 160px; height: 50px; top: 20%; right: 10%; animation-delay: -10s; }
+.c2::before { width: 70px; height: 70px; top: -40px; left: 20px; }
+.c2::after { width: 50px; height: 50px; top: -30px; left: 80px; }
+
+@keyframes drift {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(50px); }
+}
+
+/* Dialog window (Lab 頁面彈出對話框) */
+.window {
+    background: #FFFFFF;
+    border-radius: 40px;
+    padding: 4rem 3rem;
+    box-shadow: 0 15px 35px rgba(255, 179, 186, 0.4), 0 5px 15px rgba(0,0,0,0.05);
+    animation: floatUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    max-width: 500px;
+    margin: 0 auto;
+    position: relative;
+    border: none;
+}
+
+.window::before {
+    content: '✨';
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    font-size: 3rem;
+    animation: twinkle 2s infinite ease-in-out;
+}
+.window::after {
+    content: '🌸';
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    font-size: 2.5rem;
+    animation: twinkle 2s infinite ease-in-out 1s;
+}
+
+@keyframes floatUp {
+    from { transform: translateY(40px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+@keyframes twinkle {
+    0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.8; }
+    50% { transform: scale(1.2) rotate(10deg); opacity: 1; }
+}
+
+/* 標題與副標題 */
+h1.main-title {
+    font-size: 3.2rem;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    margin-top: 3rem;
+    color: #FF8BA7;
+    text-shadow: 3px 3px 0px #FFFFFF;
+    letter-spacing: 2px;
+    font-weight: 900;
+    animation: gentleBob 3s ease-in-out infinite;
+}
+
+@keyframes gentleBob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+.subtitle {
+    margin-bottom: 5rem; /* 給圓形 icon 懸浮空間 */
+    color: #9D8189;
+    font-size: 1.1rem;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 0.8rem 2rem;
+    border-radius: 30px;
+    font-weight: 700;
+    box-shadow: 0 4px 10px rgba(255, 179, 186, 0.2);
+}
+
+/* 網格與卡片 */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 3rem;
+    width: 100%;
+    max-width: 1000px;
+}
+
+.card {
+    background: var(--card-bg);
+    border-radius: 40px;
+    padding: 3rem 2rem;
+    text-decoration: none;
+    color: var(--text-color);
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 10px 30px rgba(255, 179, 186, 0.3);
+    text-align: center;
+    margin-top: 30px; /* 給卡片上方的 icon 留出空間 */
+    border: none;
+}
+
+.card:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 20px 40px rgba(255, 179, 186, 0.5);
+}
+
+.card-icon {
+    font-size: 3.5rem;
+    position: absolute;
+    top: -45px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #FFF;
+    border-radius: 50%;
+    width: 90px;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 15px rgba(255, 179, 186, 0.3);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.card:hover .card-icon {
+    transform: translateX(-50%) scale(1.15) rotate(5deg);
+}
+
+.card h2 {
+    font-size: 1.6rem;
+    color: #FF8BA7;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+    font-weight: 800;
+}
+
+.card-2 h2 { color: #5BCECA; }
+.card-3 h2 { color: #FECA57; }
+
+.card p {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #9D8189;
+    font-weight: 600;
+    margin-bottom: 0;
+}
+
+/* Lab 子頁面具體元素 */
+.lab-title {
+    font-size: 2.2rem;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: #FF8BA7;
+    font-weight: 800;
+}
+.stage-2 .lab-title { color: #5BCECA; }
+.stage-3 .lab-title { color: #FECA57; }
+
+.lab-desc {
+    font-size: 1.2rem;
+    margin-bottom: 2.5rem;
+    line-height: 1.8;
+    color: #9D8189;
+    font-weight: 600;
+}
+
+.btn { 
+    display: inline-block; 
+    color: #FFFFFF; 
+    background: #FFB3BA;
+    border-radius: 999px;
+    padding: 1rem 2.5rem;
+    text-decoration: none; 
+    font-size: 1.1rem;
+    font-weight: 800;
+    box-shadow: 0 8px 20px rgba(255, 179, 186, 0.6);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    border: none;
+}
+
+.btn:hover { 
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 12px 25px rgba(255, 179, 186, 0.8);
+}
+
+/* 個別關卡的返回按鈕色系 */
+.stage-2 .btn { background: #5BCECA; box-shadow: 0 8px 20px rgba(91, 206, 202, 0.4); }
+.stage-2 .btn:hover { box-shadow: 0 12px 25px rgba(91, 206, 202, 0.6); }
+
+.stage-3 .btn { background: #FECA57; box-shadow: 0 8px 20px rgba(254, 202, 87, 0.4); }
+.stage-3 .btn:hover { box-shadow: 0 12px 25px rgba(254, 202, 87, 0.6); }
