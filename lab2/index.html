@@ -3,16 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lab 2 - 魔法照相亭</title>
+    <title>📸 魔法照相亭 - 魚皮的世界</title>
     <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="../effects.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body class="lab stage-2">
-    <div class="window">
-        <h1 class="lab-title">📸 魔法照相亭</h1>
-        <p class="lab-desc">對著鏡頭笑一個！<br>兔兔攝影師正在準備中喔～🐰</p>
-        <a href="../index.html" class="btn">🎀 回到溫暖的家</a>
+    <div class="booth-container">
+        <div class="camera-section">
+            <div class="video-wrapper">
+                <video id="webcam" autoplay playsinline></video>
+                <div id="countdown" class="countdown-overlay"></div>
+                <div id="flash" class="flash-overlay"></div>
+            </div>
+            
+            <div class="controls">
+                <div class="filter-group">
+                    <button class="filter-btn active" data-filter="none">原圖</button>
+                    <button class="filter-btn" data-filter="grayscale(100%)">經典黑白</button>
+                    <button class="filter-btn" data-filter="sepia(80%)">復古黃褐</button>
+                    <button class="filter-btn" data-filter="brightness(1.2) contrast(1.1) saturate(1.2)">粉嫩糖果</button>
+                    <button class="filter-btn" data-filter="contrast(1.5) brightness(0.9)">酷酷高對比</button>
+                </div>
+                
+                <button id="snap-btn" class="snap-btn">
+                    <span class="icon">📸</span> 開始連拍 (3張)
+                </button>
+            </div>
+        </div>
+
+        <div class="result-section">
+            <div id="result-preview" class="result-preview">
+                <div class="placeholder-msg">拍好的照片會顯示在這裡喔！🐰</div>
+            </div>
+            <button id="download-btn" class="btn download-btn" disabled>保存我的三格照 ✨</button>
+            <a href="../index.html" class="btn back-btn">🎀 回到溫暖的家</a>
+        </div>
     </div>
-    <script src="../effects.js"></script>
+
+    <canvas id="photo-canvas" style="display:none;"></canvas>
+    <script src="main.js"></script>
 </body>
 </html>
