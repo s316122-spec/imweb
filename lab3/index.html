@@ -3,16 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lab 3 - 驚喜小實驗</title>
+    <title>Lab 3 - 貓貓星際大戰</title>
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="../effects.css">
+    <link rel="stylesheet" href="game.css">
 </head>
 <body class="lab stage-3">
-    <div class="window">
-        <h1 class="lab-title">✨ 驚喜小實驗</h1>
-        <p class="lab-desc">會有什麼好玩的呢？<br>貓貓正在為你準備驚喜彩蛋！🐱</p>
-        <a href="../index.html" class="btn">🎀 回到溫暖的家</a>
+    <div class="window" style="max-width: 1000px; padding: 20px;">
+        <h1 class="lab-title">🐱 貓貓星際大戰</h1>
+        <p class="lab-desc">發射毛線球，擊退掉下來的壞老鼠！</p>
+        
+        <div id="game-container">
+            <canvas id="gameCanvas"></canvas>
+            <div id="game-ui">
+                <div id="score-board">分數: <span id="score">0</span></div>
+                <div id="lives-board"><span id="lives">❤️❤️❤️</span></div>
+                
+                <div id="start-screen" class="screen">
+                    <h2 class="game-title">貓貓星際大戰</h2>
+                    <p class="game-desc">操作說明：<br>使用滑鼠移動或方向鍵 (A/D)<br>點擊滑鼠或按空白鍵發射毛線球！</p>
+                    <button id="start-btn" class="play-btn">開始遊戲</button>
+                </div>
+
+                <div id="game-over-screen" class="screen hidden">
+                    <h2 class="game-title" style="color: #ef233c; text-shadow: 0 0 15px rgba(239, 35, 60, 0.6);">遊戲結束</h2>
+                    <p id="final-score">最終分數: 0</p>
+                    <button id="restart-btn" class="play-btn">再玩一次</button>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="../index.html" class="btn">🎀 回到溫暖的家</a>
+        </div>
     </div>
     <script src="../effects.js"></script>
+    <script src="game.js"></script>
 </body>
 </html>
