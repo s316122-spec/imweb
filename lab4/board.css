@@ -1,0 +1,289 @@
+/* lab4/board.css (Hand Tracking Mode) */
+
+body.hand-tracking-mode {
+    font-family: 'Noto Sans TC', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #1d3557, #457b9d);
+    color: white;
+    height: 100vh;
+    overflow: hidden; /* 防止滾動，適合體感操作 */
+    display: flex;
+    flex-direction: column;
+}
+
+/* 攝影機畫面區域 */
+#video-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 240px;
+    height: 180px;
+    background: #000;
+    border-radius: 15px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    overflow: hidden;
+    z-index: 100;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+#input_video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* 水平翻轉攝影機畫面，讓操作像照鏡子一樣自然 */
+    transform: scaleX(-1);
+}
+
+#output_canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: scaleX(-1);
+    z-index: 2;
+}
+
+#status-text {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #ffd166;
+    z-index: 3;
+    background: rgba(0,0,0,0.5);
+    padding: 2px 0;
+}
+
+/* 標題區 */
+.page-header {
+    text-align: center;
+    padding: 40px 20px;
+    margin-top: 20px;
+}
+
+.page-header h1 {
+    font-size: 3rem;
+    margin: 0 0 10px 0;
+    color: #ffd166;
+    text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.page-header p {
+    font-size: 1.2rem;
+    opacity: 0.8;
+}
+
+/* 一排的互動卡片 */
+.board-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 50px;
+}
+
+.cards-row {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    flex-wrap: nowrap;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.target-card {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 40px 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+    /* 為了在 JS 中抓取位置 */
+    position: relative;
+}
+
+.target-card .card-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
+}
+
+.target-card h3 {
+    font-size: 1.5rem;
+    margin: 0;
+    color: white;
+}
+
+/* 被游標懸停時的狀態 */
+.target-card.hovering {
+    background: rgba(255, 209, 102, 0.2);
+    border-color: #ffd166;
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(255, 209, 102, 0.2);
+}
+
+.target-card.hovering .card-icon {
+    transform: translateY(-10px);
+}
+
+/* 虛擬游標 (手的位置) */
+#virtual-cursor {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 60px;
+    height: 60px;
+    transform: translate(-50%, -50%);
+    pointer-events: none; /* 不阻擋實際點擊 */
+    z-index: 9999;
+    display: none; /* 偵測到手才顯示 */
+}
+
+.cursor-dot {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 30px;
+    background: radial-gradient(circle, #fff 0%, #ffd166 50%, transparent 80%);
+    border-radius: 50%;
+    box-shadow: 0 0 20px #ffd166, 0 0 40px #ffd166, 0 0 60px #ffb703;
+    animation: magicSpin 2s linear infinite;
+}
+
+/* 加上魔法十字光芒 */
+.cursor-dot::before, .cursor-dot::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background: #fff;
+    box-shadow: 0 0 10px #ffd166;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.cursor-dot::before {
+    width: 60px;
+    height: 4px;
+}
+
+.cursor-dot::after {
+    width: 4px;
+    height: 60px;
+}
+
+@keyframes magicSpin {
+    0% { transform: translate(-50%, -50%) rotate(0deg) scale(1); }
+    50% { transform: translate(-50%, -50%) rotate(180deg) scale(1.2); }
+    100% { transform: translate(-50%, -50%) rotate(360deg) scale(1); }
+}
+
+/* 懸停進度條圓圈 */
+.progress-ring {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: rotate(-90deg);
+}
+
+.progress-ring__circle {
+    transition: stroke-dashoffset 0.1s linear;
+    transform-origin: 50% 50%;
+    stroke: #ffd166;
+    /* 圓周長 = 2 * PI * r = 2 * 3.14 * 26 = 163.28 */
+    stroke-dasharray: 163.36;
+    stroke-dashoffset: 163.36; 
+}
+
+/* 彈出視窗 Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 1;
+    transition: opacity 0.3s;
+}
+
+.modal.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.modal-content {
+    background: white;
+    color: #1d3557;
+    width: 80%;
+    max-width: 800px;
+    padding: 50px;
+    border-radius: 30px;
+    text-align: center;
+    position: relative;
+    transform: scale(1);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.modal.hidden .modal-content {
+    transform: scale(0.8);
+}
+
+.modal-content h2 {
+    font-size: 2.5rem;
+    margin-top: 0;
+    color: #e63946;
+    border-bottom: 3px solid #ffd166;
+    padding-bottom: 20px;
+}
+
+.modal-content #modal-body {
+    font-size: 1.3rem;
+    line-height: 1.6;
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+.close-hint {
+    background: #f1f1f1;
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 20px;
+    color: #666;
+    font-weight: bold;
+}
+
+/* --- 新增特效動畫 --- */
+.pulse-glow {
+    animation: pulseGlow 2s infinite alternate;
+}
+
+@keyframes pulseGlow {
+    from {
+        box-shadow: 0 0 20px rgba(255, 209, 102, 0.2), inset 0 0 20px rgba(255, 209, 102, 0.1);
+    }
+    to {
+        box-shadow: 0 0 50px rgba(255, 209, 102, 0.8), inset 0 0 40px rgba(255, 209, 102, 0.4);
+    }
+}
+
+@keyframes floatIcon {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        transform: translateY(-15px) scale(1.1);
+    }
+}

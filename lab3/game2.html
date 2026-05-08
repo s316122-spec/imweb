@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 3 - 貓貓記憶翻牌</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../effects.css">
+    <link rel="stylesheet" href="game2.css">
+</head>
+<body class="lab stage-3-2">
+    <div class="window" style="max-width: 800px; padding: 20px;">
+        <h1 class="lab-title">🐾 貓貓記憶翻牌</h1>
+        <p class="lab-desc">考驗記憶力！找出所有配對的可愛圖案吧～</p>
+        
+        <div id="game-ui">
+            <div class="stats">
+                <div class="stat-box">步數: <span id="moves">0</span></div>
+                <div class="stat-box">時間: <span id="time">0</span> 秒</div>
+            </div>
+            
+            <div id="game-board" class="memory-board">
+                <!-- 卡片將由 JS 動態生成 -->
+            </div>
+
+            <div id="win-screen" class="screen hidden">
+                <h2 class="game-title" style="color: #2a9d8f; text-shadow: 0 0 15px rgba(42, 157, 143, 0.6);">恭喜過關！🎉</h2>
+                <p id="final-stats">總共花費了 0 步，用了 0 秒！</p>
+                <button id="restart-btn" class="play-btn" style="background: linear-gradient(135deg, #2a9d8f, #264653);">再玩一次</button>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px; display: flex; justify-content: center; gap: 15px;">
+            <a href="index.html" class="btn" style="background: linear-gradient(135deg, #f4a261, #e76f51);">⬅️ 回到上一個遊戲</a>
+            <a href="../index.html" class="btn">🎀 回到溫暖的家</a>
+        </div>
+    </div>
+    <script src="../effects.js"></script>
+    <script src="game2.js"></script>
+</body>
+</html>

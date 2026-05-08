@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 4 - 體感互動看板</title>
+    <!-- 引入共用字體 -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../effects.css">
+    <link rel="stylesheet" href="board.css">
+    
+    <!-- 引入 MediaPipe Hands 相關套件 -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+</head>
+<body class="hand-tracking-mode">
+
+    <!-- 攝影機畫面 (放在角落供使用者參考) -->
+    <div id="video-container">
+        <video id="input_video" autoplay playsinline></video>
+        <canvas id="output_canvas"></canvas>
+        <div id="status-text">啟動攝影機中...</div>
+    </div>
+
+    <!-- 虛擬游標 (代表使用者的手) -->
+    <div id="virtual-cursor">
+        <div class="cursor-dot"></div>
+        <svg class="progress-ring" width="60" height="60">
+            <circle class="progress-ring__circle" stroke="white" stroke-width="4" fill="transparent" r="26" cx="30" cy="30"/>
+        </svg>
+    </div>
+
+    <!-- 頁面標題 -->
+    <header class="page-header">
+        <h1>👋 二林工商 體感互動看板</h1>
+        <p>將手舉起對準鏡頭，移動光標並<strong>停留在卡片上 2 秒</strong>即可開啟內容！</p>
+    </header>
+
+    <!-- 一排互動卡片改為單一加油面板 -->
+    <div class="board-container">
+        <div class="cards-row">
+            <!-- 歡迎面板 -->
+            <div class="target-card cheer-card pulse-glow" data-id="cheer-1" style="max-width: 600px; padding: 60px 40px; background: rgba(255, 209, 102, 0.2); border: 3px solid #ffd166; border-radius: 30px;">
+                <div class="card-icon" style="font-size: 6rem; animation: floatIcon 3s ease-in-out infinite;">✨</div>
+                <h3 style="font-size: 3rem; color: #ffd166; text-shadow: 0 0 20px rgba(255, 209, 102, 0.8), 0 0 40px rgba(255, 209, 102, 0.4); margin-bottom: 20px;">歡迎加入二林工商</h3>
+                <p style="font-size: 1.5rem; opacity: 0.9; color: white;">將手停留在這裡 2 秒</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 彈出內容視窗 (Modal) -->
+    <div id="content-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2 id="modal-title">標題</h2>
+            <div id="modal-body">內容</div>
+            <p class="close-hint">將手移出視窗外停留即可關閉</p>
+        </div>
+    </div>
+
+    <div style="text-align: center; position: fixed; bottom: 20px; width: 100%; z-index: 10;">
+        <a href="../index.html" class="btn" style="background: rgba(255,255,255,0.8); color: #333;">⬅️ 結束體驗</a>
+    </div>
+
+    <script src="../effects.js"></script>
+    <script src="board.js"></script>
+</body>
+</html>
