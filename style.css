@@ -204,6 +204,8 @@ h1.main-title {
 
 .card-2 h2 { color: #5BCECA; }
 .card-3 h2 { color: #FECA57; }
+.card-4 h2 { color: #A55EEA; } /* 軟軟紫羅蘭色 */
+.card-5 h2 { color: #FF7597; } /* 軟軟草莓粉紅 */
 
 .card p {
     font-size: 1.05rem;
@@ -257,3 +259,6 @@ h1.main-title {
 
 .stage-3 .btn { background: #FECA57; box-shadow: 0 8px 20px rgba(254, 202, 87, 0.4); }
 .stage-3 .btn:hover { box-shadow: 0 12px 25px rgba(254, 202, 87, 0.6); }
+
+.stage-5 .btn { background: #A55EEA; box-shadow: 0 8px 20px rgba(165, 94, 234, 0.4); }
+.stage-5 .btn:hover { box-shadow: 0 12px 25px rgba(165, 94, 234, 0.6); }

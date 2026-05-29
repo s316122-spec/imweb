@@ -79,8 +79,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 12000); 
     }
     
-    // 首頁產生背景大泡泡
-    if (document.body.classList.contains('home')) {
-        setInterval(createBubble, 800);
+    // 首頁與手勢互動看板產生背景大泡泡
+    if (document.body.classList.contains('home') || document.body.classList.contains('hand-tracking-mode')) {
+        setInterval(createBubble, 1200); // 體感看板泡泡稍微慢一點，避免干擾操作
     }
 });

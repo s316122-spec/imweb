@@ -12,19 +12,15 @@ body.hand-tracking-mode {
     flex-direction: column;
 }
 
-/* 攝影機畫面區域 */
+/* 攝影機畫面區域 (隱藏在螢幕外以防止阻擋頁面，同時保持 MediaPipe 偵測正常運作) */
 #video-container {
     position: fixed;
-    top: 20px;
-    right: 20px;
-    width: 240px;
-    height: 180px;
-    background: #000;
-    border-radius: 15px;
-    border: 3px solid rgba(255, 255, 255, 0.3);
-    overflow: hidden;
-    z-index: 100;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    top: 0;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
 }
 
 #input_video {
@@ -225,7 +221,10 @@ body.hand-tracking-mode {
 }
 
 .modal-content {
-    background: white;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(15px);
+    border: 3px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4), 0 0 50px rgba(255, 209, 102, 0.2);
     color: #1d3557;
     width: 80%;
     max-width: 800px;
@@ -285,5 +284,58 @@ body.hand-tracking-mode {
     }
     50% {
         transform: translateY(-15px) scale(1.1);
+    }
+}
+
+/* --- 夢幻動態背景光暈 --- */
+.glow-orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.35;
+    z-index: -2;
+    pointer-events: none;
+    animation: driftOrb 25s infinite ease-in-out alternate;
+}
+
+.orb-1 {
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, #ffd166 0%, transparent 70%);
+    top: -150px;
+    left: -150px;
+    animation-duration: 28s;
+}
+
+.orb-2 {
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, #e63946 0%, transparent 70%);
+    bottom: -200px;
+    right: -150px;
+    animation-duration: 35s;
+    animation-delay: -5s;
+}
+
+.orb-3 {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, #a55eea 0%, transparent 70%);
+    top: 60%;
+    left: 70%;
+    transform: translate(-50%, -50%);
+    animation-duration: 22s;
+    animation-delay: -10s;
+}
+
+@keyframes driftOrb {
+    0% {
+        transform: translate(0, 0) scale(1) rotate(0deg);
+    }
+    50% {
+        transform: translate(120px, 90px) scale(1.2) rotate(180deg);
+    }
+    100% {
+        transform: translate(-60px, -70px) scale(0.85) rotate(360deg);
     }
 }

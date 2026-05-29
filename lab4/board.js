@@ -200,6 +200,11 @@ function onResults(results) {
         virtualCursor.style.left = `${cursorX}px`;
         virtualCursor.style.top = `${cursorY}px`;
 
+        // 產生手勢拖尾粒子
+        if (Math.random() < 0.25) {
+            createHandSparkle(cursorX, cursorY);
+        }
+
         // 進行碰撞偵測與懸停邏輯
         checkCollision(cursorX, cursorY);
     } else {
@@ -241,3 +246,23 @@ camera.start().then(() => {
     statusText.innerText = "攝影機啟動失敗，請確認權限！";
     console.error(err);
 });
+
+// 產生手勢拖尾粒子
+function createHandSparkle(x, y) {
+    const sparkle = document.createElement('div');
+    sparkle.className = 'sparkle';
+    sparkle.innerText = ['✨', '⭐', '🌟', '💫', '🔮'][Math.floor(Math.random() * 5)];
+    sparkle.style.left = x + 'px';
+    sparkle.style.top = y + 'px';
+    document.body.appendChild(sparkle);
+
+    const moveX = (Math.random() - 0.5) * 80;
+    const moveY = (Math.random() - 0.5) * 80;
+
+    sparkle.style.setProperty('--move-x', `${moveX}px`);
+    sparkle.style.setProperty('--move-y', `${moveY}px`);
+
+    setTimeout(() => {
+        sparkle.remove();
+    }, 1000);
+}

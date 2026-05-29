@@ -1,0 +1,213 @@
+/* lab5/game.css */
+body.stage-5 {
+    background: #f3e9f9;
+    background-image: radial-gradient(#d3c2eb 15%, transparent 15%),
+        radial-gradient(#d3c2eb 15%, transparent 15%);
+    background-size: 40px 40px;
+    background-position: 0 0, 20px 20px;
+}
+
+body.stage-5 .lab-title {
+    color: #a55eea;
+    margin-bottom: 20px;
+    font-weight: 900;
+}
+
+#quiz-container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 25px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05), inset 0 0 0 2px #d3c2eb;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 進度條樣式 */
+.progress-container {
+    width: 100%;
+    height: 8px;
+    background-color: #f1ecfa;
+    border-radius: 99px;
+    margin-bottom: 25px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #a55eea, #ff7597);
+    border-radius: 99px;
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 題目 Icon */
+.quiz-icon {
+    font-size: 4rem;
+    text-align: center;
+    margin-bottom: 15px;
+    animation: bounceIcon 3s ease-in-out infinite;
+}
+
+@keyframes bounceIcon {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+/* 題目頭部資訊 */
+.quiz-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #7a636d;
+    margin-bottom: 15px;
+    border-bottom: 2px dashed #e2d9f3;
+    padding-bottom: 10px;
+}
+
+.quiz-progress-text {
+    color: #a55eea;
+}
+
+.quiz-score-text {
+    color: #ff7597;
+}
+
+/* 問題方塊 */
+.question-box {
+    margin-bottom: 25px;
+}
+
+.question-box h3 {
+    font-size: 1.4rem;
+    line-height: 1.6;
+    color: #4a3e4d;
+    margin: 0;
+    font-weight: 800;
+}
+
+/* 選項列表 */
+.options-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.option-btn {
+    background: white;
+    border: 2px solid #e2d9f3;
+    border-radius: 16px;
+    padding: 16px 20px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-align: left;
+    color: #7a636d;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.option-btn:hover {
+    transform: translateY(-2px);
+    border-color: #a55eea;
+    background-color: #fcfaff;
+    box-shadow: 0 6px 12px rgba(165, 94, 234, 0.1);
+    color: #a55eea;
+}
+
+.option-btn::before {
+    content: attr(data-prefix);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: #f1ecfa;
+    border-radius: 50%;
+    font-size: 0.9rem;
+    color: #a55eea;
+    font-weight: 900;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.option-btn:hover::before {
+    background: #a55eea;
+    color: white;
+}
+
+/* 答題回饋狀態 */
+.option-btn.correct {
+    background-color: #e6fcf5;
+    border-color: #20c997;
+    color: #0ca678;
+    box-shadow: 0 4px 10px rgba(32, 201, 151, 0.15);
+}
+
+.option-btn.correct::before {
+    content: "✓" !important;
+    background-color: #20c997 !important;
+    color: white !important;
+}
+
+.option-btn.incorrect {
+    background-color: #fff5f5;
+    border-color: #ff6b6b;
+    color: #f03e3e;
+    box-shadow: 0 4px 10px rgba(255, 107, 107, 0.15);
+}
+
+.option-btn.incorrect::before {
+    content: "✗" !important;
+    background-color: #ff6b6b !important;
+    color: white !important;
+}
+
+/* 禁用點選 (在答案揭曉時使用) */
+.option-btn.disabled {
+    pointer-events: none;
+}
+
+/* 結果畫面 */
+.result-score-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #fcfaff;
+    border: 2px solid #e2d9f3;
+    border-radius: 20px;
+    padding: 20px;
+    max-width: 280px;
+    margin: 20px auto;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.02);
+}
+
+.result-label {
+    font-size: 1rem;
+    color: #7a636d;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.result-score {
+    font-size: 3rem;
+    font-weight: 900;
+    color: #a55eea;
+    text-shadow: 2px 2px 0px white, 4px 4px 0px rgba(165, 94, 234, 0.15);
+}
+
+/* 共用畫面切換 */
+.screen {
+    animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.hidden {
+    display: none !important;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
